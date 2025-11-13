@@ -1,1 +1,737 @@
-teste
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ramos Tech • Hub Futurista</title>
+    <meta name="description" content="Landing page futurista de Ramos Tech com links para projetos, startups e redes sociais." />
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg-base: #020617;
+            --bg-gradient-start: rgba(14, 165, 233, 0.2);
+            --bg-gradient-end: rgba(59, 130, 246, 0.05);
+            --primary: #22d3ee;
+            --primary-strong: #67e8f9;
+            --primary-soft: rgba(103, 232, 249, 0.1);
+            --card-bg: rgba(15, 23, 42, 0.65);
+            --card-border: rgba(148, 163, 184, 0.2);
+            --text-strong: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-highlight: rgba(255, 255, 255, 0.12);
+            --shadow-strong: 0 20px 60px rgba(34, 211, 238, 0.25);
+            --shadow-soft: 0 12px 40px rgba(2, 132, 199, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Poppins", "Segoe UI", "Roboto", sans-serif;
+            background: radial-gradient(circle at top left, var(--bg-gradient-start), transparent 45%),
+                radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.1), transparent 55%),
+                var(--bg-base);
+            color: var(--text-strong);
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        body::before {
+            background-image: linear-gradient(rgba(34, 211, 238, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.08) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 12s linear infinite;
+        }
+
+        body::after {
+            background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.12), transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(14, 165, 233, 0.18), transparent 55%),
+                radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.12), transparent 45%);
+            filter: blur(45px);
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            50% {
+                transform: translate3d(-30px, -30px, 0);
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            place-items: center;
+            padding: clamp(1.5rem, 4vw, 4rem);
+        }
+
+        .wrapper {
+            width: min(1200px, 100%);
+            display: grid;
+            gap: clamp(1.5rem, 3vw, 3rem);
+        }
+
+        header {
+            display: grid;
+            gap: 1rem;
+            text-align: center;
+            padding: clamp(2.5rem, 5vw, 4rem);
+            border-radius: 32px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(8, 47, 73, 0.55));
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(22px) saturate(140%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(34, 211, 238, 0.18), transparent 60%);
+            mix-blend-mode: screen;
+            opacity: 0.6;
+        }
+
+        header .tagline {
+            text-transform: uppercase;
+            letter-spacing: 0.35em;
+            font-size: 0.75rem;
+            color: var(--primary-strong);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            text-shadow: 0 0 25px rgba(34, 211, 238, 0.45);
+        }
+
+        .bio {
+            margin: 0 auto;
+            max-width: 680px;
+            color: var(--text-muted);
+            font-size: clamp(1rem, 2.2vw, 1.25rem);
+            line-height: 1.8;
+        }
+
+        .bio strong {
+            color: var(--primary-strong);
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            gap: clamp(1rem, 3vw, 2.5rem);
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: clamp(1.5rem, 2vw, 2rem);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(148, 163, 184, 0.08), rgba(15, 23, 42, 0.75));
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(28px) saturate(160%);
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s;
+            outline: 1px solid transparent;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: -60% -40% auto;
+            height: 160%;
+            background: linear-gradient(120deg, rgba(34, 211, 238, 0.3), transparent 70%);
+            transform: translate3d(-40%, -20%, 0) rotate(8deg);
+            transition: transform 0.7s ease;
+            opacity: 0.6;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(34, 211, 238, 0.22), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.6s;
+        }
+
+        .card:hover,
+        .card:focus-within {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .card:hover::after,
+        .card:focus-within::after {
+            opacity: 1;
+        }
+
+        .card:hover::before,
+        .card:focus-within::before {
+            transform: translate3d(0, 0, 0) rotate(0deg);
+        }
+
+        .icon-wrapper {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.25), rgba(8, 47, 73, 0.65));
+            border: 1px solid rgba(34, 211, 238, 0.45);
+            display: grid;
+            place-items: center;
+            box-shadow: inset 0 0 22px rgba(34, 211, 238, 0.35);
+            transition: transform 0.45s ease;
+        }
+
+        .card:hover .icon-wrapper,
+        .card:focus-within .icon-wrapper {
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        .card svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: var(--primary-strong);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 1.35rem;
+            letter-spacing: 0.02em;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+
+        .link-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 18px;
+            border: 1px solid rgba(103, 232, 249, 0.35);
+            background: rgba(8, 47, 73, 0.55);
+            color: var(--primary-strong);
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            box-shadow: inset 0 0 12px rgba(34, 211, 238, 0.15);
+        }
+
+        .link-button::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1px solid rgba(103, 232, 249, 0.25);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .link-button:focus-visible {
+            outline: 2px solid transparent;
+            box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.35);
+        }
+
+        .link-button:hover,
+        .link-button:focus-visible {
+            transform: translateY(-3px) scale(1.01);
+            background: rgba(14, 116, 144, 0.55);
+            box-shadow: 0 15px 40px rgba(34, 211, 238, 0.25);
+        }
+
+        .link-button:hover::after,
+        .link-button:focus-visible::after {
+            opacity: 1;
+        }
+
+        .link-button span.icon {
+            display: grid;
+            place-items: center;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 14px;
+            background: rgba(34, 211, 238, 0.15);
+            box-shadow: inset 0 0 8px rgba(34, 211, 238, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            padding-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary-strong);
+            text-decoration: none;
+        }
+
+        footer a:hover,
+        footer a:focus-visible {
+            text-decoration: underline;
+        }
+
+        /* Loading Screen */
+        .loader-screen {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(120deg, #020617, #082f49);
+            z-index: 10;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-core {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .loader-core::before,
+        .loader-core::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+
+        .loader-core::before {
+            border-top-color: var(--primary);
+            border-left-color: rgba(34, 211, 238, 0.4);
+            animation: spin 2.4s linear infinite;
+        }
+
+        .loader-core::after {
+            border-bottom-color: rgba(59, 130, 246, 0.45);
+            border-right-color: rgba(34, 211, 238, 0.25);
+            animation: spin 1.6s linear infinite reverse;
+        }
+
+        .loader-dot {
+            position: absolute;
+            inset: 25px;
+            border-radius: 22px;
+            background: radial-gradient(circle, var(--primary-strong), rgba(34, 211, 238, 0.35));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        /* Cursor */
+        .cursor {
+            position: fixed;
+            pointer-events: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(103, 232, 249, 0.65);
+            box-shadow: 0 0 22px rgba(34, 211, 238, 0.6);
+            mix-blend-mode: screen;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            transition: transform 0.18s ease-out, width 0.18s ease, height 0.18s ease, border 0.18s ease, opacity 0.3s ease;
+        }
+
+        .cursor.active {
+            width: 60px;
+            height: 60px;
+            border-width: 2px;
+        }
+
+        /* Animations on scroll */
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(24px) scale(0.98);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        [data-animate].visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        canvas#particle-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.55;
+        }
+
+        .parallax-glow {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(34, 211, 238, 0.35), transparent 55%);
+            transition: background 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                text-align: left;
+            }
+
+            .wrapper {
+                gap: 2rem;
+            }
+
+            .card {
+                padding: 1.35rem;
+            }
+
+            .cursor {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 2rem;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .link-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-screen" id="loader" aria-hidden="true">
+        <div class="loader-core">
+            <div class="loader-dot" role="status" aria-label="Carregando"></div>
+        </div>
+    </div>
+
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+    <div class="parallax-glow" id="parallaxGlow" aria-hidden="true"></div>
+
+    <main>
+        <div class="wrapper">
+            <header data-animate>
+                <span class="tagline">Hub de Inovação Tech</span>
+                <h1>Ramos Tech</h1>
+                <p class="bio">
+                    Sou <strong>empreendedor tech</strong> apaixonado por inovação digital. Lidero startups, crio conteúdo
+                    estratégico e desenvolvo negócios escaláveis que conectam tecnologia, criatividade e impacto real.
+                    Explore meus projetos e descubra como podemos construir o futuro juntos.
+                </p>
+            </header>
+
+            <section class="grid" aria-label="Projetos e canais" data-animate>
+                <article class="card" tabindex="0">
+                    <div class="icon-wrapper" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" aria-label="Ícone YouTube">
+                            <path d="M21.6 7.2s-.2-1.4-.8-2c-.7-.8-1.4-.8-1.8-.9-2.5-.2-6.2-.2-6.2-.2h-.1s-3.7 0-6.2.2c-.4.1-1.1.1-1.8.9-.6.6-.8 2-.8 2S4 8.9 4 10.5v1c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.7.8 1.6.8 2 1 1.5.1 6 .2 6 .2s3.7 0 6.2-.2c.4-.1 1.1-.1 1.8-.9.6-.6.8-2 .8-2s.2-1.6.2-3.3v-1c0-1.6-.2-3.3-.2-3.3zM9.9 13.7V9.3l4.2 2.2-4.2 2.2z"></path>
+                        </svg>
+                    </div>
+                    <h2>Canal YouTube • RamosEz Tech</h2>
+                    <p>Conteúdo profundo sobre tecnologia, inovação, carreira em programação e visão empreendedora. Vídeos semanais com insights práticos e tendências.</p>
+                    <div class="actions">
+                        <a class="link-button" href="https://www.youtube.com/@ramoseztech" target="_blank" rel="noopener" aria-label="Abrir canal RamosEz Tech no YouTube">
+                            <span class="icon" aria-hidden="true">▶</span>
+                            <span>Assistir agora</span>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="card" tabindex="0">
+                    <div class="icon-wrapper" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" aria-label="Ícone WhatsApp">
+                            <path d="M19.05 4.91A9.86 9.86 0 0 0 12.05 2c-5.44 0-9.86 4.42-9.86 9.86 0 1.74.46 3.44 1.34 4.94l-1.4 5.11 5.22-1.37a9.82 9.82 0 0 0 4.7 1.2h.01c5.44 0 9.86-4.42 9.86-9.86 0-2.63-1.02-5.1-2.77-6.97zM12.05 20.3h-.01c-1.5 0-2.96-.4-4.24-1.15l-.3-.18-3.1.81.83-3.03-.2-.31a8.2 8.2 0 0 1-1.27-4.38c0-4.54 3.69-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.82c0 4.54-3.69 8.24-8.24 8.24zm4.54-6.17c-.25-.12-1.47-.72-1.7-.8-.23-.08-.4-.12-.58.12-.17.25-.66.8-.81.97-.15.17-.3.18-.55.06-.25-.12-1.06-.39-2.02-1.24-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.38.11-.5.12-.12.25-.3.37-.45.12-.15.15-.25.23-.42.08-.17.04-.32-.02-.45-.06-.12-.58-1.4-.8-1.92-.21-.51-.43-.44-.58-.45h-.49c-.17 0-.45.07-.68.34-.23.25-.89.87-.89 2.12 0 1.24.91 2.45 1.04 2.62.12.17 1.78 2.73 4.31 3.83.6.26 1.06.41 1.42.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.27z"></path>
+                        </svg>
+                    </div>
+                    <h2>Contato Oficial • WhatsApp</h2>
+                    <p>Conexão direta para oportunidades, consultorias, parcerias estratégicas e projetos especiais em tecnologia e negócios digitais.</p>
+                    <div class="actions">
+                        <a class="link-button" href="https://wa.me/5577981621007" target="_blank" rel="noopener" aria-label="Conversar com Ramos Tech no WhatsApp">
+                            <span class="icon" aria-hidden="true">💬</span>
+                            <span>Iniciar conversa</span>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="card" tabindex="0">
+                    <div class="icon-wrapper" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" aria-label="Ícone Hayrom Group">
+                            <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm6.97 14.74c3.16 0 5.22-1.63 5.22-4.15 0-1.89-1.34-3.16-3.63-3.63l-1.22-.24c-1.2-.24-1.76-.68-1.76-1.35 0-.83.75-1.37 1.92-1.37 1.12 0 1.83.48 2.1 1.43a.9.9 0 0 0 .85.65h.86a.82.82 0 0 0 .82-.98c-.38-2.1-2.13-3.33-4.57-3.33-2.6 0-4.3 1.4-4.3 3.55 0 1.84 1.3 3.08 3.6 3.53l1.3.27c1.26.25 1.8.7 1.8 1.4 0 .94-.86 1.48-2.15 1.48-1.32 0-2.17-.52-2.46-1.5a.9.9 0 0 0-.86-.65h-.9a.82.82 0 0 0-.8 1c.4 2.19 2.22 3.51 4.78 3.51z"></path>
+                        </svg>
+                    </div>
+                    <h2>Hayrom Group • Startup Tech</h2>
+                    <p>Ecossistema de inovação que acelera soluções digitais para empresas, combinando produtos inteligentes, branding futurista e estratégias de crescimento.</p>
+                    <div class="actions">
+                        <a class="link-button" href="https://www.instagram.com/hayromgroup" target="_blank" rel="noopener" aria-label="Visitar Instagram da Hayrom Group">
+                            <span class="icon" aria-hidden="true">📸</span>
+                            <span>Instagram</span>
+                        </a>
+                        <a class="link-button" href="https://hayromgroup.com" target="_blank" rel="noopener" aria-label="Visitar site da Hayrom Group">
+                            <span class="icon" aria-hidden="true">🌐</span>
+                            <span>Site oficial</span>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="card" tabindex="0">
+                    <div class="icon-wrapper" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" aria-label="Ícone Creators Ultra">
+                            <path d="M21 8.5a2.5 2.5 0 0 0-2.5-2.5h-13A2.5 2.5 0 0 0 3 8.5v7A2.5 2.5 0 0 0 5.5 18h13a2.5 2.5 0 0 0 2.5-2.5v-7zm-9 4.75L5.5 8.5h13l-6.5 4.75z"></path>
+                        </svg>
+                    </div>
+                    <h2>Creators Ultra • Agência Digital</h2>
+                    <p>Agência criativa focada em creators, branding tech e campanhas digitais com performance. Experiências premium com narrativa, design e comunidade.</p>
+                    <div class="actions">
+                        <a class="link-button" href="https://www.instagram.com/creatorsultra" target="_blank" rel="noopener" aria-label="Visitar Instagram da Creators Ultra">
+                            <span class="icon" aria-hidden="true">🚀</span>
+                            <span>Instagram</span>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="card" tabindex="0">
+                    <div class="icon-wrapper" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" aria-label="Ícone Panetoon">
+                            <path d="M12 2a5 5 0 0 0-5 5v1H5.5a1.5 1.5 0 0 0-1.5 1.5V12a6.5 6.5 0 0 0 4.5 6.16V21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.84A6.5 6.5 0 0 0 20 12V9.5A1.5 1.5 0 0 0 18.5 8H17V7a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v1H9V7a3 3 0 0 1 3-3zm0 16a4.5 4.5 0 0 1-4.5-4.5V10h9v5.5A4.5 4.5 0 0 1 12 20z"></path>
+                        </svg>
+                    </div>
+                    <h2>Panetoon • Receitas Premium</h2>
+                    <p>Receitas autorais de panetones gourmet, com ingredientes selecionados, processos artesanais e storytelling sensorial para encantar o paladar.</p>
+                    <div class="actions">
+                        <a class="link-button" href="https://www.instagram.com/panetoonreceitas" target="_blank" rel="noopener" aria-label="Visitar Instagram da Panetoon">
+                            <span class="icon" aria-hidden="true">🥐</span>
+                            <span>Instagram</span>
+                        </a>
+                        <a class="link-button" href="https://panetoon.online" target="_blank" rel="noopener" aria-label="Visitar site da Panetoon">
+                            <span class="icon" aria-hidden="true">🛒</span>
+                            <span>Site oficial</span>
+                        </a>
+                    </div>
+                </article>
+            </section>
+
+            <footer data-animate>
+                <p>&copy; <span id="year"></span> Ramos Tech. Criado com foco em inovação, acessibilidade e alta performance.</p>
+                <p>
+                    Desenvolvido com <span aria-hidden="true">⚡</span> por <a href="https://www.youtube.com/@ramoseztech" target="_blank" rel="noopener">Ramos</a>
+                </p>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        // Utilidades de animação suave usando requestAnimationFrame
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('[data-animate]');
+            const observer = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.2 }
+            );
+            elements.forEach(el => observer.observe(el));
+        };
+
+        const setupLoader = () => {
+            const loader = document.getElementById('loader');
+            window.addEventListener('load', () => {
+                requestAnimationFrame(() => loader.classList.add('hidden'));
+            });
+        };
+
+        const setupParticles = () => {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            const particles = [];
+            const particleCount = 80;
+            let width, height;
+
+            const resize = () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            };
+
+            const createParticle = () => {
+                return {
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.8 + 0.4,
+                    velocityX: (Math.random() - 0.5) * 0.6,
+                    velocityY: (Math.random() - 0.5) * 0.6,
+                    alpha: Math.random() * 0.4 + 0.2,
+                };
+            };
+
+            const update = particle => {
+                particle.x += particle.velocityX;
+                particle.y += particle.velocityY;
+
+                if (particle.x < 0 || particle.x > width) particle.velocityX *= -1;
+                if (particle.y < 0 || particle.y > height) particle.velocityY *= -1;
+            };
+
+            const render = () => {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(particle => {
+                    ctx.beginPath();
+                    const gradient = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, particle.radius * 8);
+                    gradient.addColorStop(0, `rgba(103, 232, 249, ${particle.alpha})`);
+                    gradient.addColorStop(1, 'rgba(14, 116, 144, 0)');
+                    ctx.fillStyle = gradient;
+                    ctx.arc(particle.x, particle.y, particle.radius * 8, 0, Math.PI * 2);
+                    ctx.fill();
+                    update(particle);
+                });
+                requestAnimationFrame(render);
+            };
+
+            const initialize = () => {
+                resize();
+                particles.length = 0;
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(createParticle());
+                }
+                render();
+            };
+
+            window.addEventListener('resize', resize);
+            initialize();
+        };
+
+        const setupCursor = () => {
+            const cursor = document.getElementById('cursor');
+            const glow = document.getElementById('parallaxGlow');
+            const interactiveSelectors = 'a, button, .card';
+            const interactiveElements = document.querySelectorAll(interactiveSelectors);
+            let mouseX = 0;
+            let mouseY = 0;
+
+            const updateCursor = () => {
+                cursor.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+                glow.style.setProperty('--x', `${mouseX / window.innerWidth * 100}%`);
+                glow.style.setProperty('--y', `${mouseY / window.innerHeight * 100}%`);
+                requestAnimationFrame(updateCursor);
+            };
+
+            document.addEventListener('pointermove', event => {
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+            });
+
+            interactiveElements.forEach(element => {
+                element.addEventListener('pointerenter', () => cursor.classList.add('active'));
+                element.addEventListener('pointerleave', () => cursor.classList.remove('active'));
+            });
+
+            document.addEventListener('pointerdown', () => cursor.classList.add('active'));
+            document.addEventListener('pointerup', () => cursor.classList.remove('active'));
+
+            updateCursor();
+        };
+
+        const setupYear = () => {
+            const yearEl = document.getElementById('year');
+            yearEl.textContent = new Date().getFullYear();
+        };
+
+        const setupCardFocus = () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('focus', () => card.classList.add('focus')); // para navegadores antigos
+                card.addEventListener('blur', () => card.classList.remove('focus'));
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            animateOnScroll();
+            setupLoader();
+            setupParticles();
+            setupCursor();
+            setupYear();
+            setupCardFocus();
+        });
+    </script>
+</body>
+</html>
