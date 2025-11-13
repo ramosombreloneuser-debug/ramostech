@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="./rmciano.png" type="image/png" />
-  <title>Ramos Tech • Domínio Digital</title>
-  <meta name="description" content="Landing page minimalista Ramos Tech com acesso rápido aos projetos estratégicos." />
+  <title>Ramos Tech</title>
+  <meta name="description" content="RAMOSTECH LINKS" />
   <style>
     :root {
       color-scheme: dark;
       --background: #0a0e1a;
       --background-edge: #050810;
       --surface: #131825;
+      --surface-alt: #0f1419;
       --surface-border: rgba(255, 255, 255, 0.08);
       --text-primary: #ffffff;
       --text-secondary: rgba(255, 255, 255, 0.6);
@@ -147,8 +148,10 @@
     }
 
     main {
-      padding: 20px;
+      padding: 60px 40px;
       width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
     .visually-hidden {
@@ -165,101 +168,185 @@
 
     .cards {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+      grid-auto-rows: 1fr;
+      gap: 32px;
     }
 
     article.card {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(165deg, var(--surface) 0%, var(--surface-alt) 100%);
+      border: 1px solid transparent;
       border-radius: var(--card-radius);
       padding: var(--card-padding);
-      min-height: 280px;
+      min-height: 320px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 24px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      animation: cardFade 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+      height: 100%;
+      backdrop-filter: blur(12px) saturate(120%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+      border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(34, 211, 238, 0.1), rgba(6, 182, 212, 0.3)) 1;
+      animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--card-delay, 0ms) both, borderGlow 3s ease-in-out infinite alternate;
+      animation-play-state: running, running;
+    }
+
+    article.card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    article.card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    article.card:hover::after,
+    article.card:focus-within::after {
+      opacity: 1;
     }
 
     article.card:hover,
     article.card:focus-within {
-      transform: translateY(-4px);
-      border-color: rgba(6, 182, 212, 0.3);
-      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(6, 182, 212, 0.25), 0 8px 16px rgba(0, 0, 0, 0.2);
+      filter: brightness(1.02);
+      border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.5), rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.5)) 1;
     }
 
-    article.card:hover,
-    article.card:focus-within {
-      will-change: transform, box-shadow;
+    .card-content {
+      position: relative;
+      z-index: 1;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
-    article.card h2 {
-      margin: 0 0 8px;
-      font-size: 1.25rem;
-      font-weight: 600;
-      line-height: 1.3;
+    .card-content h2 {
+      margin: 0;
+      font-size: 1.375rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
-    article.card p {
-      margin: 0 0 24px;
+    .card-content p {
+      margin: 0;
+      max-width: 90%;
       font-size: 0.9375rem;
-      line-height: 1.6;
+      line-height: 1.65;
       font-weight: 400;
-      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+      color: rgba(255, 255, 255, 0.65);
     }
 
     .actions {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
+      align-items: center;
+      margin-top: auto;
     }
 
     .link-button {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      height: 44px;
-      padding: 0 24px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background-image: linear-gradient(135deg, #06b6d4, #0891b2);
+      min-width: 160px;
+      height: 48px;
+      padding: 0 28px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%), linear-gradient(135deg, #06b6d4, #0891b2);
       color: var(--text-primary);
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background-image 0.2s ease, filter 0.2s ease;
+      box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease, border-color 0.3s ease, background-position 0.3s ease;
+      background-size: 200% 200%, 200% 200%;
+      background-position: 0 0, 0 0;
       cursor: pointer;
+      overflow: hidden;
+    }
+
+    .link-button::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.15) 50%, transparent 70%);
+      transform: rotate(45deg);
+      opacity: 0;
+      animation: shine 3s linear infinite;
+      pointer-events: none;
+    }
+
+    .link-button:hover::before {
+      opacity: 1;
     }
 
     .link-button:hover {
-      transform: scale(1.02);
-      background-image: linear-gradient(135deg, #0891b2, #0e7490);
-      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
-      border-color: rgba(6, 182, 212, 0.3);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.35), 0 4px 8px rgba(0, 0, 0, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+      background-position: 100% 0, 100% 0;
     }
 
     .link-button:active {
-      transform: scale(0.98);
-      filter: brightness(0.9);
+      transform: translateY(0) scale(0.97);
+      box-shadow: 0 2px 8px rgba(6, 182, 212, 0.25);
+      filter: brightness(1.1);
+      transition-duration: 0.1s;
     }
 
     .link-button:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 4px;
+      outline: 3px solid var(--accent-hover);
+      outline-offset: 3px;
+      filter: brightness(1.05);
+      box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(6, 182, 212, 0.15);
+    }
+
+    .link-button:focus-visible::before {
+      opacity: 1;
     }
 
     svg.icon {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       stroke: currentColor;
-      stroke-width: 1.5;
+      stroke-width: 2;
       fill: none;
     }
 
@@ -271,55 +358,105 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    @keyframes cardFade {
-      from {
+    @keyframes slideUpFade {
+      0% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(40px);
       }
-      to {
+      100% {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    article.card:nth-child(1) { animation-delay: 0s; }
-    article.card:nth-child(2) { animation-delay: 0.1s; }
-    article.card:nth-child(3) { animation-delay: 0.2s; }
-    article.card:nth-child(4) { animation-delay: 0.3s; }
-    article.card:nth-child(5) { animation-delay: 0.4s; }
-
-    @media (min-width: 768px) {
-      header {
-        padding: 96px 40px 40px;
+    @keyframes buttonLift {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
       }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes borderGlow {
+      0% {
+        border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(34, 211, 238, 0.1), rgba(6, 182, 212, 0.3)) 1;
+      }
+      100% {
+        border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(34, 211, 238, 0.2), rgba(6, 182, 212, 0.4)) 1;
+      }
+    }
+
+    @keyframes shine {
+      0% {
+        transform: rotate(45deg) translateX(-20%);
+      }
+      50% {
+        transform: rotate(45deg) translateX(20%);
+      }
+      100% {
+        transform: rotate(45deg) translateX(60%);
+      }
+    }
+
+    article.card:nth-child(1) { --card-delay: 0ms; }
+    article.card:nth-child(2) { --card-delay: 120ms; }
+    article.card:nth-child(3) { --card-delay: 240ms; }
+    article.card:nth-child(4) { --card-delay: 360ms; }
+    article.card:nth-child(5) { --card-delay: 480ms; }
+
+    .link-button {
+      animation: buttonLift 0.6s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--card-delay, 0ms) + 200ms) both;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 40px 20px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      article.card {
+        min-height: 280px;
+        padding: 32px;
+      }
+
+      .actions {
+        gap: 16px;
+      }
+
+      .actions.actions-multi .link-button {
+        width: 100%;
+        max-width: none;
+        gap: 10px;
+      }
+
+      .actions.actions-single .link-button {
+        width: 100%;
+        max-width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
       main {
         padding: 40px;
       }
+
       .cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 24px;
       }
     }
 
-    @media (min-width: 1024px) {
-      header {
-        padding: 112px 60px 48px;
-      }
-      main {
-        padding: 60px;
-      }
+    @media (min-width: 1025px) {
       .tagline {
         font-size: 1.125rem;
-      }
-      .cards {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 32px;
-      }
-      article.card:nth-child(-n + 3) {
-        grid-column: span 2;
-      }
-      article.card:nth-child(n + 4) {
-        grid-column: span 3;
       }
     }
 
@@ -327,16 +464,39 @@
       body {
         animation: none;
       }
-      article.card {
+      article.card,
+      .link-button {
+        animation: none;
+        transition: none;
+      }
+      .link-button::before {
         animation: none;
       }
       article.card:hover,
       article.card:focus-within {
         transform: none;
-        box-shadow: none;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        filter: none;
       }
-      .link-button {
-        transition: none;
+      .link-button:hover,
+      .link-button:active {
+        transform: none;
+        box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+        filter: none;
+      }
+    }
+
+    @media (hover: none) {
+      .link-button:hover {
+        transform: none;
+        box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        background-position: 0 0, 0 0;
+      }
+
+      .link-button:active {
+        transform: scale(0.95);
+        filter: brightness(1.15);
       }
     }
   </style>
@@ -346,17 +506,17 @@
   <header>
     <span class="logo">Ramos Tech</span>
     <h1>LINKS</h1>
-    <p class="tagline">Em minha cabeça, sempre serei o melhor.</p>
+    <p class="tagline">Domino arquiteturas que movem milhões diariamente. Escalo startups do esboço ao lucro imediato com squads enxutos. Viralizo tecnologia em massa para formar legiões de criadores independentes e rentáveis. Três verticais, um objetivo: domínio digital absoluto.</p>
   </header>
   <main id="conteudo">
     <section class="cards" aria-labelledby="links-estrategicos">
       <h2 id="links-estrategicos" class="visually-hidden">Links estratégicos Ramos Tech</h2>
       <article class="card">
-        <div>
+        <div class="card-content">
           <h2>Canal Ramos Tech</h2>
           <p>Transmissões técnicas, estratégias de escala e lançamentos visionários em vídeo.</p>
         </div>
-        <div class="actions">
+        <div class="actions actions-single">
           <a class="link-button" href="https://youtube.com/@ramoseztech" target="_blank" rel="noopener noreferrer" aria-label="Abrir canal Ramos Tech no YouTube">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4.5 5.5h15c.8 0 1.5.7 1.5 1.5v10c0 .8-.7 1.5-1.5 1.5h-15A1.5 1.5 0 013 17V7c0-.8.7-1.5 1.5-1.5zm7.5 3l4 3-4 3v-6z" />
@@ -366,11 +526,11 @@
         </div>
       </article>
       <article class="card">
-        <div>
+        <div class="card-content">
           <h2>Contato Direto</h2>
           <p>Canal único de decisões rápidas, parcerias estratégicas e convites exclusivos.</p>
         </div>
-        <div class="actions">
+        <div class="actions actions-single">
           <a class="link-button" href="https://api.whatsapp.com/send?phone=5577981621007" target="_blank" rel="noopener noreferrer" aria-label="Abrir contato direto Ramos Tech no WhatsApp">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 3h14a2 2 0 012 2v14l-4-3H5a2 2 0 01-2-2V5a2 2 0 012-2zm4.5 5.5h5M9.5 12h8" />
@@ -380,11 +540,11 @@
         </div>
       </article>
       <article class="card">
-        <div>
+        <div class="card-content">
           <h2>Hayrom Group</h2>
           <p>Startup que integra hardware, software e operações escaláveis para mercados globais.</p>
         </div>
-        <div class="actions">
+        <div class="actions actions-multi">
           <a class="link-button" href="https://instagram.com/hayromgroup" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Hayrom Group">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
@@ -403,11 +563,11 @@
         </div>
       </article>
       <article class="card">
-        <div>
+        <div class="card-content">
           <h2>Creators Ultra</h2>
           <p>Agência que transforma criadores em negócios com growth, mídia e automações.</p>
         </div>
-        <div class="actions">
+        <div class="actions actions-single">
           <a class="link-button" href="https://instagram.com/creatorsultra" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Creators Ultra">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
@@ -419,11 +579,11 @@
         </div>
       </article>
       <article class="card">
-        <div>
+        <div class="card-content">
           <h2>Panetoon</h2>
           <p>Receitas de panetones premium, logística digital e comunidade sazonal sob demanda.</p>
         </div>
-        <div class="actions">
+        <div class="actions actions-multi">
           <a class="link-button" href="https://instagram.com/panetoonreceitas" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram da Panetoon">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="4" ry="4" />
@@ -444,7 +604,27 @@
     </section>
   </main>
   <footer>
-    2025 Ramos Tech. "Pare de chorar e vire quem você diz que quer ser!"
+    2025 - Ramos Tech.
   </footer>
+  <script>
+    (function () {
+      const supportsFinePointer = window.matchMedia('(pointer: fine)').matches;
+      if (!supportsFinePointer) return;
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card) => {
+        card.addEventListener('pointermove', (event) => {
+          const rect = card.getBoundingClientRect();
+          const x = ((event.clientX - rect.left) / rect.width) * 100;
+          const y = ((event.clientY - rect.top) / rect.height) * 100;
+          card.style.setProperty('--mouse-x', `${x}%`);
+          card.style.setProperty('--mouse-y', `${y}%`);
+        });
+        card.addEventListener('pointerleave', () => {
+          card.style.removeProperty('--mouse-x');
+          card.style.removeProperty('--mouse-y');
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
